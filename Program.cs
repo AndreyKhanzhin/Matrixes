@@ -1,4 +1,4 @@
-﻿string N;
+string N;
 int n;
 string a;
 string b;
@@ -6,13 +6,13 @@ int ai;
 int bi;
 
 do{
-    Console.WriteLine("Введите размерность квадратной матрицы, и диапазон, в пределах которого будет заполняться матрицы, которыми являются целые положительные числа. При ошибке программа ввода начнётся заново.");
+    Console.WriteLine("Введите размерность квадратной матрицы, и границы диапазона, в пределах которого будет заполняться матрицы, которыми являются целые положительные числа. При ошибке программа ввода начнётся заново.");
     N = Console.ReadLine();
     Console.WriteLine("Теперь введите границы диапазонов.");
     a = Console.ReadLine();
     b = Console.ReadLine();
 }
-while (N == null || int.TryParse(N, out n) == false || n >= 0 || int.TryParse(a, out ai) == false || int.TryParse(b, out bi) == false);
+while (N == null || int.TryParse(N, out n) == false || n <= 0 || int.TryParse(a, out ai) == false || int.TryParse(b, out bi) == false);
 
 int[,] A = new int[n, n];
 int[,] B = new int[n, n];
@@ -22,7 +22,7 @@ Random rnd = new Random();
 void MatrixFill (int[,] matrix){
     for (int i = 0; i < n; i++){
         for (int j = 0; j < n; j++){
-            matrix[i, j] = rnd.Next(Math.Min(ai, bi), Math.Max(ai, bi));
+            matrix[i, j] = rnd.Next(Math.Min(ai, bi), Math.Max(ai, bi) + 1);
         }
     }
     for (int i = 0; i < n; i++){
@@ -66,11 +66,15 @@ void Raz(int[,] matrix1, int[,] matrix2){
     Console.WriteLine();
 }
 
+Console.WriteLine("Матрица А:");
 MatrixFill(A);
+Console.WriteLine("Матрица В:");
 MatrixFill(B);
 
 Console.WriteLine("Результат сложения матриц:");
 Sum(A, B);
 Console.WriteLine("Результат вычитания матриц:");
+Console.WriteLine("A - B");
 Raz(A, B);
+Console.WriteLine("B - A");
 Raz(B, A);
